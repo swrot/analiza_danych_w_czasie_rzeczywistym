@@ -1,5 +1,7 @@
 FROM jupyter/pyspark-notebook
 
+WORKDIR /home/jovyan/notebooks
+
 USER root
 
 RUN apt-get update && \
@@ -8,24 +10,20 @@ RUN apt-get update && \
 
 RUN conda install flask numpy --yes
 
-# Ustaw katalog roboczy na /app
-WORKDIR /app
-
-# Skopiuj plik requirements.txt do katalogu /app
+# Skopiuj plik requirements.txt do katalogu
 COPY requirements.txt .
 
 # Zainstaluj zależności aplikacji
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Skopiuj plik app.py do katalogu /app
+# Skopiuj plik app.py do katalogu
 COPY app.py .
 
 # Uruchom aplikację Flask na porcie 5000
 EXPOSE 5000
 
-# Uruchom aplikację po starcie kontenera
-CMD ["python", "app.py"]
-
 USER ${NB_UID}
 
-WORKDIR /home/jovyan/notebooks
+
+# Uruchom aplikację po starcie kontenera
+CMD ["python", "app.py"]
