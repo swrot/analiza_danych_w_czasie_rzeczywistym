@@ -1,5 +1,4 @@
 import pickle
-from math import log10
 
 from flask import Flask
 from flask import request
