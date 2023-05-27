@@ -1,20 +1,13 @@
-# Użyj obrazu bazowego Python 3.9
-FROM python:3.9
+FROM jupyter/pyspark-notebook
 
-# Ustaw katalog roboczy na /app
-WORKDIR /app
+USER root
 
-# Skopiuj plik requirements.txt do katalogu /app
-COPY requirements.txt .
+RUN apt-get update && \
+    apt-get install -y curl vim wget git netcat && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Zainstaluj zależności aplikacji
-RUN pip install --no-cache-dir -r requirements.txt
+RUN conda install --no-cache tensorflow pymongo flask numpy pandas matplotlib --yes
 
-# Skopiuj plik app.py do katalogu /app
-COPY app.py .
+USER ${NB_UID}
 
-# Uruchom aplikację Flask na porcie 5000
-EXPOSE 5000
-
-# Uruchom aplikację po starcie kontenera
-CMD ["python", "app.py"]
+WORKDIR /home/jovyan/notebooks
