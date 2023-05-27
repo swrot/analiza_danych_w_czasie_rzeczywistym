@@ -5,6 +5,8 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 import numpy as np
+X=4.6
+y=3.2
 
 class Perceptron():
     
