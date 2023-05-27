@@ -19,6 +19,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Skopiuj plik app.py do katalogu
 COPY app.py .
 
+# Skopiuj plik model.pkl do katalogu
+COPY model.pkl .
+
 # Uruchom aplikację Flask na porcie 5000
 EXPOSE 5000
 
